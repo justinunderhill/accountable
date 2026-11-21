@@ -28,3 +28,7 @@ npm run dev
 ```
 
 `npm run seed` puts my sample data in the second folder's own database. It asks first: type `yes`. Stop your own app before you start mine, since both use the same ports. Press Ctrl+C to stop it. When you're done, you can delete the `accountable-ed` folder.
+
+## The optional extra
+
+The day ends with an optional lecture: I use Claude Code and AWS's AI-DLC v2 to build Accountable Status, a status page for Accountable. Every step is in its own repo, if you'd like to try it: [ed-donner/accountable-status](https://github.com/ed-donner/accountable-status).

@@ -40,6 +40,10 @@ npm run dev
 
 The cash flow chart now leads the Money section. Look at what was done after the merges: one Money section, the review of the three together, quotes now using the invoice designs after the refactor, and one story in the sample data. `docs/STATUS.md` tells the story of each stage. Stop the app with Ctrl+C when you're done.
 
+## Optional extra: a large codebase
+
+In the optional last lecture of the day, I use Claude Code to make a small change to Odoo, a suite of business apps with about 3 million lines of code. First Claude Code writes documentation for coding agents. Then it takes one change through the AI SDLC for a shop that sells refurbished laptops and phones. The repo is my fork of Odoo: [ed-donner/ownership](https://github.com/ed-donner/ownership). Every step and prompt is in its README.
+
 ## If you'd rather build it yourself
 
 These are the steps and prompts behind my checkpoints. They take many hours of agent time, and the cash flow chart alone is a full feature.

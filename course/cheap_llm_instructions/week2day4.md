@@ -30,3 +30,7 @@ npm run dev
 ```
 
 `npm run seed` puts my sample data in the second folder's own database. It asks first: type `yes`. Stop your own app before you start mine, since both use the same ports. Press Ctrl+C to stop it. When you're done, you can delete the `accountable-ed` folder.
+
+## The optional extra
+
+The day ends with two optional lectures: I use Claude Code Projects to build Accountable Support, a ticket system for the support team behind Accountable. Projects need a Claude Pro plan or above. Every step is in its own template repo, if you'd like to try it: [ed-donner/accountable-support](https://github.com/ed-donner/accountable-support).

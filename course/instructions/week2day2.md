@@ -32,6 +32,10 @@ npm run dev
 
 Open the app, then look at Products in the top bar and Company settings in the menu under your initials. Then see how each feature got there, in `docs/changes/products/` and `docs/changes/company-settings/`: the intent, the plan and the independent review. `docs/STATUS.md` tells the story of each stage. Stop the app with Ctrl+C when you're done.
 
+## Optional extra: AWS AI-DLC
+
+In the optional last lecture of the day, I use Claude Code and AWS's AI-DLC v2 to build Accountable Status, a status page for Accountable. It has its own repo: [ed-donner/accountable-status](https://github.com/ed-donner/accountable-status). Every step and prompt is in its [course/instructions.md](https://github.com/ed-donner/accountable-status/blob/main/course/instructions.md).
+
 ## If you'd rather build it yourself
 
 These are the steps and prompts behind my checkpoints. They take several hours of agent time: my run of these two features took about seven.

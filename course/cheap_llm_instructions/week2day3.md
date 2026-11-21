@@ -30,3 +30,7 @@ npm run dev
 ```
 
 `npm run seed` puts my sample data in the second folder's own database. It asks first: type `yes`. Stop your own app before you start mine, since both use the same ports. Press Ctrl+C to stop it. When you're done, you can delete the `accountable-ed` folder.
+
+## The optional extra
+
+The day ends with an optional lecture: I use Claude Code to make a small change to Odoo, a suite of business apps with about 3 million lines of code. Every step is in my fork of Odoo, if you'd like to try it: [ed-donner/ownership](https://github.com/ed-donner/ownership).

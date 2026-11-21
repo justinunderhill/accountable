@@ -26,6 +26,10 @@ npm run dev
 
 Open the menu under your initials, where Accounting lists the four reports: the profit and loss chart, the balance sheet's slider, the journal and the aged balances. Open any invoice or bill to see the entries it made, and an accepted quote for its Create invoice button. In `docs/changes/`, each report has its intent with the agent's own decisions, its plan, ui-check's report and the review. Stop the app with Ctrl+C when you're done.
 
+## Optional extra: Claude Code Projects
+
+In the optional last two lectures of the day, I use Claude Code Projects to build Accountable Support, a ticket system for the support team behind Accountable. A coordinator hands each feature to a thread that runs in the cloud, and I review and merge each pull request. It has its own template repo: [ed-donner/accountable-support](https://github.com/ed-donner/accountable-support). Make your own copy with **Use this template** rather than a fork. Every step and the project instructions are in its [course/instructions.md](https://github.com/ed-donner/accountable-support/blob/main/course/instructions.md). Projects are part of Claude Code. If you use a different coding agent, I suggest watching these two lectures.
+
 ## If you'd rather build it yourself
 
 These are the steps and prompts behind my checkpoints. They take many hours of agent time. The factory runs on GitHub's computers with your Claude subscription, so it needs a Pro plan or above.

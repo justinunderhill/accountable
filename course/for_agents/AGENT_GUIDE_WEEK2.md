@@ -22,7 +22,7 @@ The student plays a team of three on one computer. The lead prepares `main`, two
 
 The slides also cover the roles on an AI-native team, who signs off a change (at Stripe another engineer approves each pull request; Anthropic's Claude Code team sets the number of human reviewers by risk), how deeply to review by risk, and adopting one process across a team. Accountable counts as medium risk: a targeted review, with two review agents and the student checking the design, the important code and the tests.
 
-**On the course, students follow Ed's checkpoints** on Days 2, 3 and 4, as Ed recommends, because each build takes hours of agent time and much of a plan's weekly usage. Ed built them with Claude Opus 5.5 at extra high effort on the $200 Ultra plan, and these two features took about seven hours. The checkpoints are branches that came with the student's clone, like the Week 1 day branches:
+**On the course, students follow Ed's checkpoints** on Days 2, 3 and 4, as Ed recommends, because each build takes hours of agent time and much of a plan's weekly usage. Ed built them with Claude Opus 5.5 at extra high effort on a larger plan, and these two features took about seven hours. The checkpoints are branches that came with the student's clone, like the Week 1 day branches:
 
 - `week2day2-intents`: the two agreed intents, in `docs/changes/products/` and `docs/changes/company-settings/`, with the lead's Prepare main commits just before them.
 - `week2day2-end`: both features merged. Products is in the top bar, and Company settings is in the menu under the user's initials. Each feature's folder in `docs/changes/` has its intent, plan and independent review, and `docs/STATUS.md` tells the story of each stage.
@@ -47,6 +47,16 @@ Every prompt Ed used is at the end of `course/instructions/week2day2.md`, under 
 - **The merge:** in Ed's build, git stopped on 18 files, 8 of them code or tests and 10 of them docs, and none in the code Prepare main moved. Most code conflicts are where each feature registers itself in the same list, such as the routers, the routes, the menu and the sample data, and both lines stay. `docs/STATUS.md`, `docs/spec.md` and the area files conflict too.
 - **Problems git doesn't show:** code that merges cleanly can still fail, so `npm run check:quick` after the merge is what proves it. In Ed's build there were three. Both features added a migration numbered `0004` after `0003`, and the backend's tests failed until company settings' migration became `0005`. Products' fix for a review finding sent every message through `useNotify`, with an ESLint rule against Sonner's `toast`, and changed `showSaveError`'s arguments, so the company settings page failed ESLint, the type check and a test. The resolving agent usually finds these too.
 - **One Supabase database:** a branch's migrations change whatever database the app starts on. Don't run `npm start` from two branches against the same Supabase project. The shared app gets both changes when `main` is deployed.
+
+**The optional extra at the end of Day 2:** Ed uses Claude Code and AWS's AI-DLC v2 to build Accountable Status, a status page that checks Accountable is up, with 90 days of history, response times and incidents. It's a separate repo, https://github.com/ed-donner/accountable-status, cloned beside `accountable`. Every step and prompt is in its `course/instructions.md`, and `git checkout complete` there gives Ed's finished run. Day 1 said students wouldn't install AI-DLC; this lesson does, and it's optional. Ed ran it on Sonnet 5.5 at medium effort with AI-DLC's poc scope, in about 50 minutes. Watch out for:
+
+- **AI-DLC's installer runs in the student's own terminal,** not through the coding agent. `aidlc config --harness claude` asks two questions when run in a terminal: MCP servers off, and "n" to fixing the two sections.
+- **AI-DLC writes a `.claude/CLAUDE.md` in that repo.** That's AI-DLC's own setup; Accountable keeps `AGENTS.md` alone.
+- **Status starts and stops Accountable from `../accountable`,** so Accountable has to run on the branch the student is on, with a database that matches that branch. If `npm run dev` stops with "Can't locate revision identified by ...", move the database aside as in Day 2's points above. On an earlier branch, `npm run dev` removes Python packages that later days add; they come back on a later branch.
+- **Accountable's API answers 401 when nobody is signed in,** which still counts as up.
+- **Status uses ports 5190 and 8790,** so it runs beside Accountable.
+- **The guard rules** in its instructions let the agents start and stop Accountable but not kill processes or change Accountable's files. If AI-DLC asks the student to stop a process, check it's Status's own server first.
+- **Ed recorded on a Mac.** The Windows lines in its instructions haven't been run end to end.
 
 ## Day 3: Large Codebases, Security, Testing
 
@@ -79,6 +89,14 @@ The build: the lead prepares `main` again, on a branch called `prepare`. The age
 - **The refactor's characterization tests:** the prompt keeps every characterization test passing without changing it, but quotes taking the invoice designs changes what a quote's PDF contains, so the tests that record quote PDFs have to change. Before the refactor starts, agree with the student exactly which tests will change and why, and check each new expected result by hand. In Ed's build 63 of the 68 tests stayed as they were, invoice PDFs came out byte for byte the same, and fpdf2 went in favor of ReportLab, which invoices used.
 - **Codex and the reviewer at the same time:** in cash flow's Deploy they run side by side, with no IMPROVE step. If Claude Code mentions `independent-review.md` appearing while it fixes the review, that's Codex's file, read in the next step.
 - **Shared docs conflict at every merge:** `docs/STATUS.md`, `docs/spec.md` and the area files each feature touched. Later merges meet more of them as `main` grows.
+
+**The optional extra at the end of Day 3:** Ed uses Claude Code to make a small change to Odoo Community 20.0, a suite of business apps with about 3 million lines of code in about 650 modules. It's Ed's fork of Odoo, https://github.com/ed-donner/ownership, and its README has the setup and every prompt. Students fork `ownership`, shallow-clone their fork and run Odoo natively with uv and PostgreSQL 16 or later. Claude Code writes documentation for coding agents with a dynamic workflow, then takes one change through Plan, Design, Build, Test and Deploy: an addon, `addons/take_ownership`, for Take Ownership, a made-up shop that sells refurbished laptops, phones and tablets. The branches `main`, `documented` and `completed` let a student skip a step. Ed ran it on Sonnet 5.5 at medium effort. Watch out for:
+
+- **It's a separate repo,** not Accountable. None of Accountable's commands apply there.
+- **When forking, untick "Copy the `main` branch only"** so the fork has all three branches. Week 1 Day 3 left it ticked for Accountable.
+- **Never open a pull request from the fork.** It's part of Odoo's network of forks, so a pull request could reach Ed's repo or Odoo's. Deploy is a local merge.
+- **On Windows, `odoo.conf` needs `db_password` and `db_template = template1`,** as the README shows. Without the second, creating the database fails with "collations with different collate and ctype values are not supported on this platform".
+- **Dynamic workflows are part of Claude Code.** With another coding agent, the README says to start the prompt with "Use subagents" instead.
 
 ## Day 4: Cloud Agents, Software Factory
 
@@ -115,6 +133,18 @@ The day ends with how far companies go today: Stripe has a person review every c
 - **Render:** each merge into the fork's `main` deploys to Render once CI passes, and its migrations change the Supabase database, as on Week 1 Day 5.
 - **A forced push:** if the student moved `main` onto Ed's branch, GitHub refuses `git push fork main` while the fork's `main` still has their own work. The instructions push that work as its own branch first, then force the push. Check with the student before any forced push.
 
+**The optional extra at the end of Day 4:** two lectures in which Ed uses Claude Code Projects, in beta, to build Accountable Support, a ticket system for the support team behind Accountable, with its own repo and database. It's a template repo, https://github.com/ed-donner/accountable-support, and every step and the project instructions are in its `course/instructions.md`. The student makes their own copy with Use this template (not a fork, so the threads' pull requests can't go to Ed's repo), gives the Claude GitHub App access to it and creates a project in the Code tab of the Claude desktop app or at claude.ai/code. The project's coordinator hands each feature to a thread, a Claude Code session in the cloud on its own branch, which opens a pull request. Feature 1, the foundation, goes first. Once it's merged, five threads build ticket detail, SLA targets, a knowledge base, customer satisfaction ratings and a dashboard at the same time. The student reviews and merges every pull request, then clones their copy beside `accountable` and runs `npm run dev`. Ed ran it with Sonnet 5.5 for the coordinator and Sonnet 5.5 at medium effort for the threads, in about two hours. His own copy is private, so there's no finished branch to check out. Watch out for:
+
+- **Projects is in beta,** on Claude Pro and higher, not yet on every account, and not on Team or Enterprise plans. It's in the sidebar or under More, in the Code tab of the desktop app or at claude.ai/code, not in the CLI or VS Code. With another coding agent, the student watches the lectures.
+- **The Claude GitHub App** pushes the threads' branches and opens their pull requests. If it's installed for selected repositories only, the student adds the new repo at https://github.com/settings/installations.
+- **Saving the project instructions starts the build,** with no first message, so the models go in first.
+- **Ticket detail (feature 2) is merged first,** since the SLA times, the articles and the ratings show on its page.
+- **Merge conflicts:** after a merge, the other pull requests can have conflicts, and the threads don't notice by themselves. In Ed's run they didn't update from `main`, though the project instructions ask for it, until he sent the coordinator the message in step 5 of the instructions. From then on it updated the open pull requests after each merge. One round took over 20 minutes. Wait for a pull request to be ready and its CI to pass before merging it.
+- **Threads load `CLAUDE.md`, `.claude/rules/` and the repo's skills,** including the brand skill, but not its hooks, permissions or `.mcp.json`. CI on each pull request is the only automatic check. This is why the repo has `CLAUDE.md` rather than `AGENTS.md`.
+- **The threads build and test on Node 22,** the cloud image's version, while the stack and CI use Node 26 (24 or later works locally). That was enough in Ed's run.
+- **Support uses ports 5180 and 8780,** so it runs beside Accountable and Accountable Status.
+- **Each student's threads write their own code,** so their app differs from Ed's in the details.
+
 ## Day 5: Capstone
 
 The student builds the capstone themselves: an AI Copilot for Accountable, a panel where the user asks about the CRM and the books in plain English and has it make changes. The intent is the student's own this time, written with the agent from a few lines of notes, or Ed's in full at the end of `course/instructions/week2day5.md`. It goes through the six stages as before, with the OpenRouter key added on Render before the merge. Then comes the student's assignment.
@@ -124,7 +154,7 @@ The student builds the capstone themselves: an AI Copilot for Accountable, a pan
 **Watch out for:**
 
 - **Any starting point from the end of Week 1:** the student's own build, or any of Ed's branches from `week1day5-end` on, since the prompts use the reviewer and ui-check subagents and the Render setup from Week 1 Day 5. Then `npm run seed` (type `yes`). If it stops with "Can't locate revision", see Day 2. Ed's intent was written for his Day 4 version, so on an earlier build the student changes its first line, as the instructions say.
-- **Usage:** Day 5 is a full build, like Week 1 Day 3. On a plan of about $20 a month, use Sonnet or the equivalent ("Models and usage limits" in `course/for_agents/AGENT_COURSE_GUIDE.md`).
+- **Usage:** Day 5 is a full build, like Week 1 Day 3. On a smaller plan, such as Claude Pro, use Sonnet or the equivalent ("Models and usage limits" in `course/for_agents/AGENT_COURSE_GUIDE.md`).
 - **The key goes in `.env`, written by the student:** the hooks stop you reading or editing `.env`, so the student adds `OPENROUTER_API_KEY=` and the key on a line of its own, and saves the file. Ed says on camera that an unsaved `.env` is a common reason a key doesn't work. A key starts `sk-or-v1-`. On OpenRouter it's made under the dashboard's API keys, not its managed keys, with a small credit limit. Never ask the student to paste the key into the chat.
 - **`.env` and `npm run dev`:** from Week 1 Day 5, only `npm start` reads `.env`, and `npm run dev` leaves its settings out so it can't reach Supabase. The Copilot's key and model have to reach the backend in both `npm run dev` and `npm start`, and in no test run. In Ed's version, `npm run dev` passes those two settings from `.env` and leaves the rest out. The backend reads them when it starts, so restart `npm run dev` after changing `.env`.
 - **The tests never call a real model:** Ed's tests point the backend at a stand-in for OpenRouter. A test that needs the key, or reaches OpenRouter, is a bug.
