@@ -1,0 +1,34 @@
+/* Brand tokens from docs/spec.md. Light mode only for the MVP. */
+:root {
+  --page: #f0f4f5;
+  --panel: #ffffff;
+  --ink: #073b4c;
+  --ink-muted: rgba(7, 59, 76, 0.65);
+  --ink-faint: rgba(7, 59, 76, 0.45);
+  --sea-green: #06d6a0;
+  --sea-green-hover: #05c493;
+  --sea-green-ink: #047a5b;
+  --marigold: #ffc145;
+  --marigold-ink: #8a5a00;
+  --coral: #f78c6b;
+  --coral-ink: #b4441f;
+  --cerulean: #118ab2;
+  --cerulean-ink: #0b6e8f;
+  --raspberry: #ef476f;
+  --raspberry-ink: #c8234f;
+  --sea-mist: #cdd8db;
+  --line: #e3eaec;
+  --tint: rgba(7, 59, 76, 0.045);
+  --tint-hover: rgba(7, 59, 76, 0.07);
+
+  --shadow: 0 1px 2px rgba(7, 59, 76, 0.06), 0 2px 8px rgba(7, 59, 76, 0.04);
+  --shadow-lift: 0 2px 10px rgba(7, 59, 76, 0.12);
+  --shadow-drag: 0 12px 32px rgba(7, 59, 76, 0.28);
+  --shadow-dialog: 0 20px 60px rgba(7, 59, 76, 0.3);
+  --radius: 12px;
+  --radius-card: 10px;
+
+  --sans: "Instrument Sans", system-ui, sans-serif;
+  --serif: "Instrument Serif", Georgia, serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+}
