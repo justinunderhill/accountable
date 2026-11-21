@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accountable, mockup A: Classic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/base.css">
+<style>
+  .app { display: grid; grid-template-columns: 232px 1fr; min-height: 100vh; }
+  .side { padding: 20px 14px; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 10px; padding: 4px 10px; }
+  .logo { width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: var(--sea-green); display: grid; place-items: center; font-weight: 700; font-size: 16px; }
+  .brand-name { font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+  .nav { display: flex; flex-direction: column; gap: 2px; }
+  .nav a { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 10px; color: var(--ink-muted); font-weight: 500; }
+  .nav a:hover { background: rgba(7, 59, 76, 0.05); text-decoration: none; color: var(--ink); }
+  .nav a.active { background: rgba(6, 214, 160, 0.2); color: var(--ink); font-weight: 600; }
+  .side-foot { margin-top: auto; padding: 12px; font-size: 12px; color: var(--ink-muted); }
+
+  main { padding: 28px 32px 48px; max-width: 1360px; min-width: 0; }
+  .top { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+  h1 { font-size: 28px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .greet { font-family: var(--serif); font-size: 20px; color: var(--ink-muted); margin: 2px 0 0; }
+
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 16px; }
+  .kpi { display: flex; flex-direction: column; gap: 6px; }
+  .kpi-label { font-size: 13px; font-weight: 600; color: var(--ink-muted); display: flex; align-items: center; gap: 8px; }
+  .kpi-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .kpi-value { font-family: var(--mono); font-size: 26px; font-weight: 600; letter-spacing: -0.02em; }
+  .kpi-sub { font-size: 13px; color: var(--ink-muted); }
+  .kpi-alert { color: var(--raspberry-ink); }
+
+  .row { display: grid; gap: 16px; margin-bottom: 16px; }
+  .r-charts { grid-template-columns: 3fr 2fr; }
+  .r-pipe { grid-template-columns: 1fr 1fr; }
+  .r-lists { grid-template-columns: 1fr 1fr; }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><div class="logo">A</div><span class="brand-name">Accountable</span></div>
+    <nav class="nav" aria-label="Main">
+      <a class="active" href="#" data-view="dashboard"><span data-icon="dashboard"></span>Dashboard</a>
+      <a href="#pipeline" data-view="pipeline"><span data-icon="pipeline"></span>Pipeline</a>
+      <a href="#" data-soon><span data-icon="deals"></span>Deals</a>
+      <a href="#" data-soon><span data-icon="contacts"></span>Contacts</a>
+      <a href="#" data-soon><span data-icon="organizations"></span>Organizations</a>
+    </nav>
+    <div class="side-foot">Sales CRM</div>
+  </aside>
+
+  <main>
+   <div data-view-panel="dashboard">
+    <div class="top">
+      <div>
+        <h1>Dashboard</h1>
+        <p class="greet">Good morning. Here's where sales stand on Saturday, November 21.</p>
+      </div>
+      <button class="btn btn-primary" onclick="openAdd('new')"><span data-icon="plus" data-size="16"></span>New deal</button>
+    </div>
+
+    <section class="kpis">
+      <div class="panel kpi">
+        <span class="kpi-label"><span class="kpi-dot" style="background:var(--cerulean)"></span>Open pipeline</span>
+        <span class="kpi-value" data-fig="openTotal"></span>
+        <span class="kpi-sub"><span data-fig="openCount"></span> open deals</span>
+      </div>
+      <div class="panel kpi">
+        <span class="kpi-label"><span class="kpi-dot" style="background:var(--marigold)"></span>Expected revenue</span>
+        <span class="kpi-value" data-fig="expected"></span>
+        <span class="kpi-sub">Value times probability of close</span>
+      </div>
+      <div class="panel kpi">
+        <span class="kpi-label"><span class="kpi-dot" style="background:var(--sea-green)"></span>Won, last 12 months</span>
+        <span class="kpi-value" data-fig="wonTotal"></span>
+        <span class="kpi-sub"><span data-fig="wonCount"></span> deals won</span>
+      </div>
+      <div class="panel kpi">
+        <span class="kpi-label"><span class="kpi-dot" style="background:var(--raspberry)"></span>Follow-ups</span>
+        <span class="kpi-value"><span class="kpi-alert" data-fig="overdue"></span> <span style="font-size:15px;font-family:var(--sans);font-weight:600" class="kpi-alert">overdue</span></span>
+        <span class="kpi-sub"><span data-fig="upcoming"></span> due in the next 7 days</span>
+      </div>
+    </section>
+
+    <section class="row r-charts">
+      <div class="panel">
+        <div class="panel-head"><div><h2 class="panel-title">Revenue won</h2><p class="panel-sub">By month, last 12 months (USD)</p></div></div>
+        <div class="chart" id="line"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div><h2 class="panel-title">Deals won</h2><p class="panel-sub">Number of deals, by month</p></div></div>
+        <div class="chart" id="bars"></div>
+      </div>
+    </section>
+
+    <section class="row r-pipe">
+      <div class="panel">
+        <div class="panel-head"><div><h2 class="panel-title">Sales funnel</h2><p class="panel-sub">Value of deals that reached each stage</p></div></div>
+        <div id="funnel"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div><h2 class="panel-title">Open pipeline by stage</h2><p class="panel-sub"><span data-fig="openTotal"></span> across <span data-fig="openCount"></span> deals</p></div><a href="#pipeline" data-goto="pipeline">View pipeline</a></div>
+        <div id="stagebar"></div>
+      </div>
+    </section>
+
+    <section class="row r-lists">
+      <div class="panel">
+        <div class="panel-head"><h2 class="panel-title">Follow-ups</h2></div>
+        <div id="followups"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2 class="panel-title">Recent activity</h2></div>
+        <div id="recent"></div>
+      </div>
+    </section>
+   </div>
+
+   <div data-view-panel="pipeline" hidden>
+    <div class="top">
+      <div>
+        <h1>Pipeline</h1>
+        <p class="greet">Drag a card to change its stage, or to move it up or down its column.</p>
+      </div>
+      <button class="btn btn-primary" onclick="openAdd('new')"><span data-icon="plus" data-size="16"></span>New deal</button>
+    </div>
+    <section class="panel" style="margin-bottom:16px"><div class="board-totals" id="board-totals"></div></section>
+    <div class="board" id="board"></div>
+   </div>
+  </main>
+</div>
+<div class="mock-note">Mockup A: Classic</div>
+<script src="shared/mockup.js"></script>
+<script src="shared/pipeline.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    lineChart(document.getElementById("line"), { values: DATA.revenue, labels: DATA.months, full: DATA.monthsFull, counts: DATA.won, color: "#06D6A0" });
+    barChart(document.getElementById("bars"), { values: DATA.won, labels: DATA.months, full: DATA.monthsFull, color: "#FFC145" });
+    funnel(document.getElementById("funnel"));
+    stageBar(document.getElementById("stagebar"));
+    followups(document.getElementById("followups"), { upcomingLimit: 4, overdueLimit: 4 });
+    recent(document.getElementById("recent"));
+  });
+</script>
+</body>
+</html>

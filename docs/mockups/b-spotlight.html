@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accountable, mockup B: Spotlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared/base.css">
+<style>
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 16px 28px 48px; }
+  .topbar { display: flex; align-items: center; gap: 28px; background: var(--panel); border-radius: 14px; box-shadow: var(--shadow); padding: 10px 12px 10px 18px; position: sticky; top: 12px; z-index: 10; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; }
+  .logo { width: 28px; height: 28px; border-radius: 8px; background: var(--sea-green); color: var(--ink); display: grid; place-items: center; font-weight: 700; }
+  .nav { display: flex; gap: 4px; }
+  .nav a { padding: 7px 14px; border-radius: 999px; color: var(--ink-muted); font-weight: 500; }
+  .nav a:hover { background: rgba(7, 59, 76, 0.05); color: var(--ink); text-decoration: none; }
+  .nav a.active { background: var(--ink); color: #fff; font-weight: 600; }
+  .search { margin-left: auto; display: flex; align-items: center; gap: 8px; background: var(--page); border-radius: 10px; padding: 7px 12px; color: var(--ink-muted); width: 240px; font-size: 13px; }
+
+  .intro { margin: 36px 4px 22px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; }
+  .greet { font-family: var(--serif); font-size: 40px; line-height: 1.1; margin: 0; font-weight: 400; letter-spacing: -0.01em; }
+  .greet em { color: var(--sea-green-ink); font-style: italic; }
+  .date { font-size: 14px; color: var(--ink-muted); margin: 6px 0 0; }
+
+  .hero { display: grid; grid-template-columns: 300px 1fr; gap: 28px; padding: 28px; margin-bottom: 16px; }
+  .hero-label { font-size: 13px; font-weight: 600; color: var(--ink-muted); }
+  .hero-value { font-family: var(--mono); font-size: 44px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin: 6px 0 4px; }
+  .hero-sub { color: var(--ink-muted); font-size: 14px; }
+  .trend { margin-top: 10px; }
+  .stats { margin-top: 28px; display: grid; gap: 18px; }
+  .stat { display: grid; grid-template-columns: 1fr auto; align-items: baseline; padding-top: 14px; box-shadow: 0 -1px 0 var(--line); }
+  .stat-label { font-size: 13px; color: var(--ink-muted); }
+  .stat-value { font-family: var(--mono); font-weight: 600; font-size: 18px; }
+  .stat-note { grid-column: 1 / -1; font-size: 12px; color: var(--ink-muted); }
+  .hero-chart-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+
+  .row { display: grid; gap: 16px; margin-bottom: 16px; }
+  .r3 { grid-template-columns: 1fr 1.2fr 1fr; }
+  .r2 { grid-template-columns: 1fr 1fr; }
+  .alert-strip { display: flex; align-items: center; gap: 10px; background: rgba(239, 71, 111, 0.1); color: var(--raspberry-ink); border-radius: 10px; padding: 10px 14px; font-weight: 600; margin-bottom: 14px; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <div class="brand"><div class="logo">A</div>Accountable</div>
+    <nav class="nav" aria-label="Main">
+      <a class="active" href="#" data-view="dashboard">Dashboard</a>
+      <a href="#pipeline" data-view="pipeline">Pipeline</a>
+      <a href="#" data-soon>Deals</a>
+      <a href="#" data-soon>Contacts</a>
+      <a href="#" data-soon>Organizations</a>
+    </nav>
+    <div class="search"><span data-icon="search" data-size="15"></span>Search records</div>
+    <button class="btn btn-primary" onclick="openAdd('new')"><span data-icon="plus" data-size="16"></span>New deal</button>
+  </header>
+
+  <div data-view-panel="dashboard">
+  <section class="intro">
+    <div>
+      <h1 class="greet">Good morning. Here's <em>where sales stand</em>.</h1>
+      <p class="date">Saturday, November 21, 2026</p>
+    </div>
+  </section>
+
+  <section class="panel hero">
+    <div>
+      <div class="hero-label">Won, last 12 months</div>
+      <div class="hero-value" data-fig="wonTotal"></div>
+      <div class="hero-sub"><span data-fig="wonCount"></span> deals won · <span data-fig="wonThisMonth"></span> so far this month</div>
+      <div class="stats">
+        <div class="stat"><span class="stat-label">Open pipeline</span><span class="stat-value" data-fig="openTotal"></span><span class="stat-note"><span data-fig="openCount"></span> open deals</span></div>
+        <div class="stat"><span class="stat-label">Expected revenue</span><span class="stat-value" data-fig="expected"></span><span class="stat-note">Value times probability of close</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="hero-chart-head"><h2 class="panel-title">Revenue won by month (USD)</h2><span class="panel-sub">Dec 2025 to Nov 2026</span></div>
+      <div class="chart" id="line"></div>
+    </div>
+  </section>
+
+  <section class="row r3">
+    <div class="panel">
+      <div class="panel-head"><div><h2 class="panel-title">Deals won</h2><p class="panel-sub">Number of deals, by month</p></div></div>
+      <div class="chart" id="bars"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><div><h2 class="panel-title">Sales funnel</h2><p class="panel-sub">Value of deals that reached each stage</p></div></div>
+      <div id="funnel"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><div><h2 class="panel-title">Open pipeline</h2><p class="panel-sub">Value in each open stage</p></div><a href="#pipeline" data-goto="pipeline">Board</a></div>
+      <div id="stagebar"></div>
+    </div>
+  </section>
+
+  <section class="row r2">
+    <div class="panel">
+      <div class="panel-head"><h2 class="panel-title">Follow-ups</h2><span class="panel-sub"><span data-fig="upcoming"></span> in the next 7 days</span></div>
+      <div class="alert-strip"><span data-icon="alert" data-size="16"></span><span><span data-fig="overdue"></span> follow-ups are overdue</span></div>
+      <div id="followups"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h2 class="panel-title">Recent activity</h2></div>
+      <div id="recent"></div>
+    </div>
+  </section>
+  </div>
+
+  <div data-view-panel="pipeline" hidden>
+    <section class="intro">
+      <div>
+        <h1 class="greet">The <em>pipeline</em>.</h1>
+        <p class="date">Drag a card to change its stage, or to move it up or down its column.</p>
+      </div>
+      <div class="panel" style="padding:16px 22px"><div class="board-totals" id="board-totals"></div></div>
+    </section>
+    <div class="board" id="board"></div>
+  </div>
+</div>
+<div class="mock-note">Mockup B: Spotlight</div>
+<script src="shared/mockup.js"></script>
+<script src="shared/pipeline.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    lineChart(document.getElementById("line"), { values: DATA.revenue, labels: DATA.months, full: DATA.monthsFull, counts: DATA.won, color: "#06D6A0", height: 300 });
+    barChart(document.getElementById("bars"), { values: DATA.won, labels: DATA.months, full: DATA.monthsFull, color: "#FFC145", height: 230 });
+    funnel(document.getElementById("funnel"));
+    stageBar(document.getElementById("stagebar"));
+    followups(document.getElementById("followups"), { upcomingLimit: 4, overdueLimit: 3 });
+    recent(document.getElementById("recent"), { limit: 7 });
+  });
+</script>
+</body>
+</html>
